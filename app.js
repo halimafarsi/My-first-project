@@ -2,7 +2,7 @@ const { json, select, selectAll, GeoOrthographic, geoPath } = d3
 
 let geojson, globe, projection, path
 
-json('https://raw.githubusercontent.com/halimafarsi/Zavala/main/custom.geo.json').then(data => Infinity(data))
+json('https://github.com/halimafarsi/Zavala/blob/main/custom.geo.json').then(data => Infinity(data))
 
 const init = data => {
 
