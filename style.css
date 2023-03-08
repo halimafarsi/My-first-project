@@ -1,8 +1,0 @@
-body {
-       font-family: 'Times New Roman', Times, serif; 
-       background-color: blue;
-       background-image: radial-gradient(ellipse farthest-corner at 45 px, #0c002a 0%, black 50%,  #0c002a 95%);
-       margin: 0;
-       padding: 0;
-       min-height: 100vh;
-}
