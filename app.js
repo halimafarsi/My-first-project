@@ -1,4 +1,4 @@
-const { json, select, selectAll, GeoOrthographic, geoPath } = d3
+const { json, select, selectAll, geoStereographic, geoPath } = d3
 
 let geojson, globe, projection, path
 
@@ -15,7 +15,7 @@ const drawGlobe = () => {
                 .attr('width', window.innerWidth)
                 .attr('height', window.innerHeight)
 
-        projection = GeoOrthographic()
+        projection = d3.geoStereographic()
         path = geoPath().projection(projection)
 
         globe
