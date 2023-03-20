@@ -2,7 +2,7 @@ const { json, select, selectAll, geoStereographic, geoPath } = d3
 
 let geojson, globe, projection, path
 
-json('docs\Mapa.json').then(data => init(data))
+json('data\Mapa.json').then(data => init(data))
 
 const init = data => {
 
