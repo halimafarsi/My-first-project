@@ -8,8 +8,35 @@
         <Link rel="stylesheet" href="docs/style.css">
 </head>
 <body> <h1>Mapa de entrenamiento</h1>
-        <script src="https://d3js.org/d3.v7.min.js"></script>
-        <Script src="docs/app.js"></Script>
+        <script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+<Script src="docs/app.js"></Script>
+   <svg id="my_dataviz" width="440" height="300"></svg>
+<script>
+    var svg = d3.select("svg"),
+        width = +svg.attr("width"),
+        height = +svg.attr("height");
+    
+    var projection = d3.geoMercator()
+        .center([4, 40])                // GPS of location to zoom on
+        .scale(980)                       // This is like the zoom
+        .translate([ width/2, height/2 ])
         
+    d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson", function(data)
+    { data.features = data.features.filter(function(d){console.log(d.properties.name) ; return d.properties.name=="spain"})
+    svg.append("g")
+    .selectAll("path")
+    .data(data.features)
+    .enter()
+    .append("path")
+      .attr("fill", "grey")
+      .attr("d", d3.geoPath()
+          .projection(projection)
+      )
+    .style("stroke", "none")
+    })
+    </script>
+   <div></div>
 </body>
 </html>
