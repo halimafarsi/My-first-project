@@ -1,16 +1,16 @@
 const { json, select, selectAll, geoStereographic, geoPath } = d3
 
-let geojson, globe, projection, path
+let geojson, Map, projection, path
 
 json('data\Mapa.json').then(data => init(data))
 
 const init = data => {
 
         geojson = data
-        drawGlobe()
+        drawMap()
 }
-const drawGlobe = () => {
-        globe = select('body')
+const drawMap = () => {
+        Map = select('body')
                 .append('svg')
                 .attr('width', window.innerWidth)
                 .attr('height', window.innerHeight)
