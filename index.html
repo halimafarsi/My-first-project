@@ -4,7 +4,6 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
         <script src="My-first-project\libreria\d3.js" type="text/javascript"></script>
         <link rel="stylesheet" href="My-first-project\docs\style.css" type="text/css">
         <title>Visualización de datos</title>
@@ -38,63 +37,5 @@
         </div>
         <script src="My-first-project\docs\app.js"></script>
 </div>
-=======
-        <title>Mapa</title>
-        <Link rel="stylesheet" href="docs/style.css">
-</head>
-<body> <h1>Mapa</h1>
-<script src="https://d3js.org/d3.v4.js"></script>
-<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
-
-   <svg id="my_dataviz" width="440" height="300"></svg>
-<script>
-    var svg = d3.select("svg"),
-        width = +svg.attr("width"),
-        height = +svg.attr("height");
-    
-    var projection = d3.geoMercator()
-        .center([4, 40])              
-        .scale(980)            
-        .translate([ width/2, height/2 ])
-
-    var path = d3.geoPath()
-    .projection(projection)
-    d3.queue()
-  .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")  // World shape
-  .defer(d3.csv, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_connectionmap.csv") // Position of circles
-  .await(ready)
-
-  var link = []
-    data.forEach(function(row){
-      source = [+row.long1, +row.lat1]
-      target = [+row.long2, +row.lat2]
-      topush = {type: "LineString", coordinates: [source, target]}
-      link.push(topush)
-    })
-
-    svg.append("g")
-    .selectAll("path")
-    .data(dataGeo.features)
-    .enter()
-    .append("path")
-      .attr("fill", "grey")
-      .attr("d", d3.geoPath()
-          .projection(projection)
-      )
-      .style("stroke", "#fff")
-      .style("stroke-width", 0)
-
-      svg.selectAll("myPath")
-      .data(link)
-      .enter()
-      .append("path")
-        .attr("d", function(d){ return path(d)})
-        .style("fill", "none")
-        .style("stroke", "#69b3a2")
-        .style("stroke-width", 2)
-    </script>
-   <div></div>
->>>>>>> a05673fd3bf2fe8cc7bdc0aae33460067ae78201
 </body>
 </html>
