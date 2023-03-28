@@ -91,8 +91,8 @@ d3.json("../data/Mapa", function(json) {
         .append("svg")
         .attr("width", width_slider)
         .attr("height", height_slider);
-      var yeardomain = [0, asuntos.length - 1];
-      var axisyears = [
+      var totalcartasdomain = [0, asuntos.length - 1];
+      var axistotalcartas = [
         parseFloat(asuntos[0].substring(0, 4)),
         parseFloat(asuntos[0].substring(0, 4)),
         parseFloat(asuntos[0].substring(0, 4)),
@@ -118,7 +118,7 @@ d3.json("../data/Mapa", function(json) {
       ];
       var scale = d3.scale
       .linear()
-      .domain(yeardomain)
+      .domain(totalcartasdomain)
       .rangeRound([0, width]);
     var x = d3.svg
       .axis()
@@ -128,7 +128,7 @@ d3.json("../data/Mapa", function(json) {
         return d;
       })
       .tickSize(0)
-      .tickValues(axisyears);
+      .tickValues(axistotalcartas);
     svg
       .append("g")
       .attr("class", "axis")
@@ -198,7 +198,7 @@ d3.json("../data/Mapa", function(json) {
       }
       for (var i = 0; i < data.length; i++) {
         var codeState = data[i].code;
-        var dataValue = data[i][trimestres[trimestres.length - 1]];
+        var dataValue = data[i][asuntos[asuntos.length - 1]];
         for (var j = 0; j < json.features.length; j++) {
                 var jsonState = json.features[j].properties.code;
                 if (codeState == jsonState) {
@@ -231,7 +231,7 @@ d3.json("../data/Mapa", function(json) {
                   "<b>" +
                     d.properties.name +
                     "</b></br>Tasa paro: <b>" +
-                    addComas(data[d.properties.code][trimestres[aux]]) +
+                    addComas(data[d.properties.code][asuntos[aux]]) +
                     "%</b> <br>" +
                     d.properties
                 );
@@ -313,7 +313,7 @@ d3.json("../data/Mapa", function(json) {
                         var datos = [];
                         var provincia = [];
                         for (var i = 0; i < data.length - 1; i++) {
-                                datos.push(d[i][trimestres[index]]);
+                                datos.push(d[i][asuntos[index]]);
                                 provincia.push(d[i].state);
                               }
                               var max_min = d3.extent(datos);
