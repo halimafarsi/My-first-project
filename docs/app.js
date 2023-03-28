@@ -13,6 +13,34 @@ function addComas (n) {
         .replace(".",",")
 }
 
+let geojson, Map, projection, path
+
+json('data\Mapa.json').then(data => init(data))
+
+const init = data => {
+
+        geojson = data
+        drawMap()
+}
+const drawMap = () => {
+        Map = select('body')
+                .append('svg')
+                .attr('width', window.innerWidth)
+                .attr('height', window.innerHeight)
+
+        projection = d3.geoStereographic()
+        path = geoPath().projection(projection)
+
+        globe
+                .selectAll('path')
+                .data(geojson.features)
+                .enter().append('path')
+                .attr('d', path)
+                .style('fill', '#33415c')
+                .style('stroke', 'white')
+
+
+
 var colores = new Array("#adff2f","#7fff00","#7CFC00");
 
 function getColor(d) {
@@ -55,8 +83,8 @@ var w = 950,
 var aux = asuntos.length - 1;
 var width_slider = 920;
 var height_slider = 50;
-d3.csv("", function(data) {
-d3.json("My-first-project\data\Mapa.json", function(json) {
+d3.csv("../data/Datos", function(data) {
+d3.json("../data/Mapa", function(json) {
         var svg = d3
         .select("#slider")
         .attr("class", "chart")
@@ -299,4 +327,4 @@ d3.json("My-first-project\data\Mapa.json", function(json) {
                 .transition()
                 .duration(100)
                 .style("opacity", 0);
-            });
+            })};
