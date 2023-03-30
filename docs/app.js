@@ -83,8 +83,8 @@ var w = 950,
 var aux = asuntos.length - 1;
 var width_slider = 920;
 var height_slider = 50;
-d3.csv("../data/Datos", function(data) {
-d3.json("../data/Mapa", function(json) {
+d3.csv("My-first-project\data\Datos.csv", function(data) {
+d3.json("My-first-project\data\Mapa.json", function(json) {
         var svg = d3
         .select("#slider")
         .attr("class", "chart")
