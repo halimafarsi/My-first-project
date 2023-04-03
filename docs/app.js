@@ -197,15 +197,7 @@ d3.json("My-first-project\data\Mapa.json", function(json) {
         d3.select(".cursor").style("fill", "");
       }
       for (var i = 0; i < data.length; i++) {
-        var codeState = data[i].code;
-        var dataValue = data[i][asuntos[asuntos.length - 1]];
-        for (var j = 0; j < json.features.length; j++) {
-                var jsonState = json.features[j].properties.code;
-                if (codeState == jsonState) {
-                  json.features[j].properties.value = dataValue;
-                  break;
-                }
-              }
+       
               var cont = map
               .selectAll("#mapa path")
               .data(json.features)
@@ -262,7 +254,6 @@ d3.json("My-first-project\data\Mapa.json", function(json) {
                 d3.select("#Número-de-cartas").html(asuntos[index].substring(0, 4));
                 cont.style("fill", function(d) {
                   for (var i = 0; i < data.length; i++) {
-                    var codeState = data[i].code;
                     var dataValue = data[i][asuntos[index]];
                     for (var j = 0; j < json.features.length; j++) {
                       var jsonState = json.features[j].properties.code;
