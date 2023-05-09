@@ -1,31 +1,37 @@
-const { json, select, selectAll, geoStereographic, geoPath } = d3
+// Define the function to create the map
+function createMap(spain, france, cities) {
 
-let geojson, Map, projection, path
+  // Define the projection and path
+  var projection = d3.geoMercator().fitSize([800, 600], spain);
+  var path = d3.geoPath().projection(projection);
 
-json('data\Mapa.json').then(data => init(data))
+  // Draw the map
+  var map = d3.select("#map")
+    .selectAll(".country")
+    .data(spain.features.concat(france.features))
+    .enter().append("path")
+    .attr("class", "country")
+    .attr("d", path);
 
-const init = data => {
-
-        geojson = data
-        drawMap()
+  // Draw the lines
+  var lines = d3.select("#map")
+    .selectAll(".line")
+    .data(cities)
+    .enter().append("path")
+    .attr("class", "line")
+    .attr("d", function(d) {
+      var source = projection([cities.find(c => c.source === d.source).lon, cities.find(c => c.source === d.source).lat]);
+      var target = projection([cities.find(c => c.target === d.target).lon, cities.find(c => c.target === d.target).lat]);
+      return "M" + source[0] + "," + source[1] + "L" + target[0] + "," + target[1];
+    })
+    .style("stroke-width", function(d) { return d.value + "px"; })
+    .style("stroke", "black")
+    .style("fill", "none");
 }
-const drawMap = () => {
-        Map = select('body')
-                .append('svg')
-                .attr('width', window.innerWidth)
-                .attr('height', window.innerHeight)
 
-        projection = d3.geoStereographic()
-        path = geoPath().projection(projection)
-
-        globe
-                .selectAll('path')
-                .data(geojson.features)
-                .enter().append('path')
-                .attr('d', path)
-                .style('fill', '#33415c')
-                .style('stroke', 'white')
-
-
-
-}
+// Load the map data and create the map
+Promise.all([
+  d3.json("spain.json"),
+  d3.json("france.json"),
+  d3.csv("cities.csv")
+]).then(function(data)
