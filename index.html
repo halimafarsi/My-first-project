@@ -1,82 +1,28 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Map of Spain and France</title>
+  <title>Visualización de datos</title>
   <style>
-    /* Styles for the map and lines */
     #map {
       width: 800px;
       height: 600px;
-      margin: 0 auto;
-    }
-    .country {
-      fill: #eee;
-      stroke: #333;
-      stroke-width: 1px;
-    }
-    .line {
-      stroke-width: 2px;
-      stroke: #333;
-      fill: none;
+      border: 1px solid black;
     }
   </style>
 </head>
 <body>
-
-  <!-- Create a container for the map -->
+  <h2>Mapa de intercambios epistolares</h2>
   <div id="map"></div>
+  <div>
+    <select id="asuntoSelect">
+      <option value="">Seleccionar asunto</option>
+      <option value="Asunto1">María Micaela Zavala Acedo</option>
+      <option value="Asunto2">Margarita Garce de Azedo</option>
+    </select>
+    <button id="mostrarViajeBtn">Mostrar intercambios</button>
+  </div>
 
-  <!-- Load d3.js and the map data -->
   <script src="https://d3js.org/d3.v6.min.js"></script>
-  <script src="data/mapE.json"></script>
-  <script src="data/Mapa.json"></script>
-  <script src="data/test.csv"></script>
-
-  <!-- Create the map with lines -->
-  <script>
-    // Define the function to create the map
-    function createMap(spain, france, cities) {
-
-      // Define the projection and path
-      var projection = d3.geoMercator().fitSize([800, 600], spain);
-      var path = d3.geoPath().projection(projection);
-
-      // Draw the map
-      var map = d3.select("#map")
-        .selectAll(".country")
-        .data(spain.features.concat(france.features))
-        .enter().append("path")
-        .attr("class", "country")
-        .attr("d", path);
-
-      // Draw the lines
-      var lines = d3.select("#map")
-        .selectAll(".line")
-        .data(cities)
-        .enter().append("path")
-        .attr("class", "line")
-        .attr("d", function(d) {
-          var source = projection([cities.find(c => c.source === d.source).lon, cities.find(c => c.source === d.source).lat]);
-          var target = projection([cities.find(c => c.target === d.target).lon, cities.find(c => c.target === d.target).lat]);
-          return "M" + source[0] + "," + source[1] + "L" + target[0] + "," + target[1];
-        })
-        .style("stroke-width", function(d) { return d.value + "px"; })
-        .style("stroke", "black")
-        .style("fill", "none");
-    }
-
-    // Load the map data and create the map
-    Promise.all([
-      d3.json("data/mapE.json"),
-      d3.json("data/Mapa.json"),
-      d3.csv("data/test.csv")
-    ]).then(function(data) {
-      createMap(data[0], data[1], data[2]);
-    }).catch(function(error) {
-      console.error(error);
-    });
-  </script>
-
+  <script src="/datavisualiz-/docs/script.js"></script>
 </body>
 </html>
